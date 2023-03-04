@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[43,)"
+license="All rights reserved"
+
+[[mods]]
+modId="memories"
+version="${file.jarVersion}"
+displayName="Memories"
+logoFile="examplemod.png"
+authors="FoxSGR"
+
+description='''
+This mod takes screenshots and uploads them.
+'''
+
+[[dependencies.memories]]
+    modId="forge"
+    mandatory=true
+    versionRange="[43,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.memories]]
+    modId="minecraft"
+    mandatory=true
+
+    versionRange="[1.19.2,1.20)"
+    ordering="NONE"
+    side="BOTH"
