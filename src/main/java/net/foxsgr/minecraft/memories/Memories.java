@@ -1,5 +1,6 @@
 package net.foxsgr.minecraft.memories;
 
+import net.minecraft.SharedConstants;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
@@ -29,7 +30,7 @@ public class Memories {
     /**
      * The number of ticks between screenshots.
      */
-    private static final int INTERVAL = 120 * 20;
+    private static final int INTERVAL = 120 * SharedConstants.TICKS_PER_SECOND;
 
     /**
      * The screenshotter.
