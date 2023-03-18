@@ -27,6 +27,11 @@ import java.util.concurrent.Executors;
  */
 public class Screenshotter {
     /**
+     * JPEG compression level of images.
+     */
+    private static final float COMPRESSION_QUALITY = 0.8f;
+
+    /**
      * The executor that takes the screenshots.
      */
     private static final Executor EXECUTOR = Executors.newSingleThreadExecutor();
@@ -49,6 +54,7 @@ public class Screenshotter {
      * Takes a screenshot and uploads it to a server.
      */
     public void takeScreenshot(Runnable onFinish) {
+        // Take the screenshot in the game thread
         var mc = Minecraft.getInstance();
         var screenshot = Screenshot.takeScreenshot(mc.getMainRenderTarget());
 
@@ -134,7 +140,7 @@ public class Screenshotter {
 
         var params = new JPEGImageWriteParam(null);
         params.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-        params.setCompressionQuality(0.85f);
+        params.setCompressionQuality(Screenshotter.COMPRESSION_QUALITY);
 
         var outputStream = new ByteArrayOutputStream();
         var writer = ImageIO.getImageWritersByFormatName("jpg").next();
