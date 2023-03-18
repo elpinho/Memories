@@ -3,7 +3,7 @@ package net.foxsgr.minecraft.memories;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.level.LevelEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -77,21 +77,21 @@ public class Memories {
     }
 
     /**
-     * Starts the timer when the player enters a world.
+     * Starts the timer when the player enters a server.
      * @param event the event
      */
     @SubscribeEvent
-    public void onWorldLoad(LevelEvent.Load event) {
+    public void onJoin(PlayerEvent.PlayerLoggedInEvent event) {
         inWorld = true;
         ticksElapsed = 0;
     }
 
     /**
-     * Stops the timer when the player leaves a world.
+     * Stops the timer when the player leaves a server.
      * @param event the event
      */
     @SubscribeEvent
-    public void onWorldUnload(LevelEvent.Unload event) {
+    public void onLeave(PlayerEvent.PlayerLoggedOutEvent event) {
         inWorld = false;
         ticksElapsed = 0;
     }
