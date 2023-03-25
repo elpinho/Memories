@@ -1,10 +1,12 @@
 package net.foxsgr.minecraft.memories;
 
 import net.minecraft.SharedConstants;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.EntityLeaveLevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -62,6 +64,7 @@ public class Memories {
 
     /**
      * Takes a screenshot every INTERVAL ticks.
+     *
      * @param event the event
      */
     @SubscribeEvent
@@ -79,20 +82,32 @@ public class Memories {
 
     /**
      * Starts the timer when the player enters a server.
+     *
      * @param event the event
      */
     @SubscribeEvent
-    public void onJoin(PlayerEvent.PlayerLoggedInEvent event) {
+    public void onJoin(EntityJoinLevelEvent event) {
+        if (inWorld || !(event.getEntity() instanceof Player)) {
+            return;
+        }
+
+        LOGGER.debug("Starting timer");
         inWorld = true;
         ticksElapsed = 0;
     }
 
     /**
      * Stops the timer when the player leaves a server.
+     *
      * @param event the event
      */
     @SubscribeEvent
-    public void onLeave(PlayerEvent.PlayerLoggedOutEvent event) {
+    public void onWorldUnload(EntityLeaveLevelEvent event) {
+        if (!(event.getEntity() instanceof Player)) {
+            return;
+        }
+
+        LOGGER.debug("Stopping timer");
         inWorld = false;
         ticksElapsed = 0;
     }
